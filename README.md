@@ -8,10 +8,8 @@
 
 ## 🚀 Live Demo
 
-<!-- Uncomment and add your link when deployed! -->
-<!-- [View Live Site](https://yourusername.github.io/your-repo-name/) -->
-
----
+Little Lemon Website
+https://pokrhitman.github.io/little_lemon_website/
 
 ## 📚 About This Project
 
@@ -30,11 +28,11 @@ It showcases my growth as a front-end developer and serves as a central hub for 
 ## 🏆 Featured Projects
 
 - **Little Lemon Restaurant Website**  
-  [View Repo](https://github.com/pokrhitman/little-lemon-website)  
+  [View Repo](https://github.com/pokrhitman/little_lemon_website)  
   Responsive restaurant web app, accessibility-focused, built in React.
 
 - **Little Lemon Mobile App**  
-  [View Repo](https://github.com/pokrhitman/little-lemon-app)  
+  [View Repo](https://github.com/pokrhitman/little_lemon_app)  
   React Native capstone project for menu browsing, ordering, and user feedback.
 
 ---

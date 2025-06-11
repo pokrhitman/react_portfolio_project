@@ -9,7 +9,6 @@ import Alert from "./components/Alert";
 
 function App() {
   return (
-      <ChakraProvider>
         <AlertProvider>
             <Header />
             <LandingSection />
@@ -18,7 +17,6 @@ function App() {
             <Footer />
             <Alert />
         </AlertProvider>
-      </ChakraProvider>
   );
 }
 

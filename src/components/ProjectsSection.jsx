@@ -4,33 +4,22 @@ import { Box, Heading } from "@chakra-ui/react";
 import Card from "./Card";
 import photo1 from "../images/photo1.jpg";
 import photo2 from "../images/photo2.jpg";
-import photo3 from "../images/photo3.jpg";
-import photo4 from "../images/photo4.jpg";
 
 const projects = [
   {
-    title: "React Space",
+    title: "Little Lemon Restaurant Website",
     description:
-      "Handy tool belt to create amazing AR components in a React app, with redux integration via middleware",
+      "A responsive, accessible restaurant website built with React and Chakra UI. Features menu browsing, feedback forms, and accessibility enhancements. Developed as a capstone project for the Coursera Meta Front-End Developer certificate.",
+      url: "https://pokrhitman.github.io/little_lemon_website/",
     imageSrc: photo1,
   },
   {
-    title: "React Infinite Scroll",
+    title: "Little Lemon Mobile App",
     description:
-      "A scrollable bottom sheet with virtualisation support, native animations at 60 FPS and fully implemented in JS land 🔥️",
+      "React Native app for menu browsing, orders and user feedback. Developed as a capstone project for the Coursera Meta Front-End Developer certificate.",
+      url: "https://github.com/pokrhitman/little_lemon_app/blob/main/README.md",
     imageSrc: photo2,
-  },
-  {
-    title: "Photo Gallery",
-    description:
-      "A One-stop shop for photographers to share and monetize their photos, allowing them to have a second source of income",
-    imageSrc: photo3,
-  },
-  {
-    title: "Event planner",
-    description:
-      "A mobile application for leisure seekers to discover unique events and activities in their city with a few taps",
-    imageSrc: photo4,
+
   },
 ];
 
@@ -58,6 +47,7 @@ const ProjectsSection = () => {
             title={project.title}
             description={project.description}
             imageSrc={project.imageSrc}
+            url={project.url}
           />
         ))}
       </Box>

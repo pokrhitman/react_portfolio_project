@@ -1,10 +1,11 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 
-// https://vite.dev/config/
+const base = process.env.BASE_PATH || '/';
+
 export default defineConfig({
   plugins: [react()],
-  base: '/react_portfolio_project/',
+  base,
   build: {
     chunkSizeWarningLimit: 1000,
   },

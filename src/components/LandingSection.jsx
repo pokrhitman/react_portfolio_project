@@ -1,13 +1,13 @@
 import React from "react";
-import { Avatar, Heading, VStack } from "@chakra-ui/react";
+import { Text, Avatar, Heading, VStack } from "@chakra-ui/react";
 import FullScreenSection from "./FullScreenSection";
+import profilePic from "../assets/profile1.jpg";
 
-const greeting = "Hello, I am Pete!";
-const bio1 = "A front-end developer";
-const bio2 = "specialised in React";
+const greeting = "Hello, I am Pokrhitman!";
+const bio1 = "React specialist and self-taught front-end developer with a portfolio-first mindset.";
+const bio2 = "Specialized in React, Vite, and UI frameworks (Chakra UI, Material UI). \nBlending code, design, and leveraging AI to build scalable, accessible web solutions.";
 
-// Implement the UI for the LandingSection component according to the instructions.
-// Use a combination of Avatar, Heading and VStack components.
+
 const LandingSection = () => (
   <FullScreenSection
     justifyContent="center"
@@ -18,21 +18,29 @@ const LandingSection = () => (
 
     <VStack spacing={4}>
       <Avatar
-      size="2xl"
+      boxSize="360px"
       name="Pokrhitman"
-      src="https://i.pravatar.cc/150?img=7"
-      mb={4}
+      src={profilePic}
+      mb={10}
       />
 
-      <Heading as="h1" size="lg">
+      <Heading as="h1" size="xl">
         {greeting}
         </Heading>
-        <Heading as="h2" size="md" fontWeight="normal">
+        <Heading as="h2" fontSize={["lg", "xl", "2xl" ]}fontWeight="normal" color="gray.100">
           {bio1}
         </Heading>
-        <Heading as="h3" size="md" fontWeight="normal">
+        <Text 
+        as="h3" 
+        fontSize={["md", "lg", "xl" ]}
+        fontWeight="normal"
+        color="gray.200"
+        whiteSpace="pre-line"
+        textAlign="center"
+        mt={1}
+        >
           {bio2}
-        </Heading>
+        </Text>
     </VStack>
   </FullScreenSection>
 );

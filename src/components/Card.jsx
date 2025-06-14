@@ -17,10 +17,13 @@ const Card = ({ title, description, imageSrc, url }) => {
     <LinkBox
       as="article"
       bg="white"
+      overflow="hidden"
       borderRadius="lg"
       boxShadow="md"
       _hover={{ boxShadow: "lg", transform: "scale(1.02)" }}
       w="100%"
+      maxW="800px"
+      minH="420px"
       display="flex"
       flexDirection="column"
       justifyContent="flex-start"
@@ -32,42 +35,42 @@ const Card = ({ title, description, imageSrc, url }) => {
         src={imageSrc}
         alt={title}
         width="100%"
-        height="360px"
+        height="460px"
         objectFit="cover"
         borderTopRadius="lg"
       />
       <Box p={6}>
-        <Heading as="h3" size="md" mb={2} color="black">
+        <Heading as="h3" size="lg" mb={2} color="black">
           <LinkOverlay
-          href={url}
-          isExternal
-          _hover={{ color: "purple.600", textDecoration: "underline"}}
+            href={url}
+            isExternal
+            _hover={{ color: "purple.600", textDecoration: "underline" }}
           >
-          {title}
+            {title}
           </LinkOverlay>
         </Heading>
 
-        <Text fontSize="sm" color="gray.600" mb={4}>
+        <Text fontSize="xl" color="gray.600" mb={4}>
           {description}
         </Text>
         <HStack pt={2} spacing={2}>
           <LinkOverlay
-          href={url}
-          isExternal
-          fontWeight="bold"
-          color="blue-700"
-          fontSize="md"
-          display="flex"
-          alignItems="center"
-          _hover={{ color: "purple.600"}}
+            href={url}
+            isExternal
+            fontWeight="bold"
+            color="blue-700"
+            fontSize="md"
+            display="flex"
+            alignItems="center"
+            _hover={{ color: "purple.600" }}
           >
             See more&nbsp;
-          <FontAwesomeIcon icon={faArrowRight} size="1x" />
+            <FontAwesomeIcon icon={faArrowRight} size="1x" />
 
           </LinkOverlay>
         </HStack>
       </Box>
-      </LinkBox>
+    </LinkBox>
   );
 };
 

@@ -81,6 +81,6 @@ npm run build
 
 ## 🙏 Credits & Thanks
 
-This portfolio was built as part of the Coursear Meta Front-End Developer certificate and is continually improved with new skills and projects.
+This portfolio was built as part of the Coursera Meta Front-End Developer certificate and is continually improved with new skills and projects.
 
 Special thanks to the open-source community and all mentors who made this journey possible!

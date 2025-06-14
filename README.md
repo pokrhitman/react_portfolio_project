@@ -39,7 +39,9 @@ It showcases my growth as a front-end developer and serves as a central hub for 
 
 ## 👨‍💼 About Me
 
-I’m a lifelong learner and career-changer, passionate about building real-world software and user-friendly digital experiences.  
+React Specialist | Front-End Developer | Portfolio-First Mindset. 
+Passionate about building user-friendly software, applications and digital experiences.  
+
 - 🎓 Front-end Developer Certificate (Meta/Coursera, 2025)
 - 🛠️ Skills: React, JavaScript, CSS/Chakra, Node.js basics, Git/GitHub, UX, and more
 - 💡 Always looking for new challenges and team projects!

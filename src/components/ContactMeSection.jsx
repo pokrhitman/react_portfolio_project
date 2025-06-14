@@ -1,3 +1,4 @@
+import React, { useRef, useEffect } from "react";
 import { useFormik } from "formik";
 import {
   Box,
@@ -10,13 +11,20 @@ import {
   FormControl,
   FormLabel,
   FormErrorMessage,
+  FormHelperText,
+  Text,
 } from "@chakra-ui/react";
 import * as Yup from 'yup';
 import FullScreenSection from "./FullScreenSection";
 import { useAlertContext } from "../context/alertContext";
 
+
 const ContactMeSection = () => {
   const { onOpen } = useAlertContext();
+  const formRef = useRef(null);
+
+  //For ARIA live success message
+  const [successMsg, setSucccesMsg] = React.useState("");
 
   const formik = useFormik({
     initialValues: {
@@ -26,23 +34,45 @@ const ContactMeSection = () => {
       comment: "",
     },
     validationSchema: Yup.object({
-      firstName: Yup.string().required("Required"),
+      firstName: Yup.string().required("Name is required."),
       email: Yup.string()
-        .email("Invalid email address")
-        .required("Required"),
+        .email("Please enter a valid email address")
+        .required("Email address is required."),
       type: Yup.string(),
       comment: Yup.string()
-        .required("Required")
+        .required("Please let us know how we can help you (min. 25 chars).")
         .min(25, "Must be at least 25 characters"),
     }),
-    onSubmit: (values, { resetForm }) => {
+    onSubmit: (values, { resetForm, setSubmitting }) => {
+      //On submit: set success ARIA live, open alert, reset form
+      setSucccesMsg(
+        `Thanks for your submission${values.firstName ? `, ${values.firstName}` : ""}! We'll get back to you shortly.`
+      );
       onOpen(
         "success",
-        `Thanks for your submission ${values.firstName}, we will get back to you shortly!`
+        `Thanks for your submission ${values.firstName ? `, $values.firstName}` : ""} We'll get back to you shortly!`
       );
       resetForm();
+      setSubmitting(false);
+      // Focus the ARIA live region for screen readers
+      setTimeout(() => {
+        if (formRef.current) {
+          formRef.current.focus();
+        }
+      }, 200);
     }
   });
+
+  // Focus first invalid field on submit for keyboard users
+  useEffect(() => {
+    if (formik.isSubmitting && Object.keys(formik.errors).length > 0) {
+      const firstErrorKey = Object.keys(formik.errors)[0];
+      const errorElem = document.getElementsByName(firstErrorKey)[0];
+      if (errorElem) errorElem.focus();
+    }
+    // Reset successMsg when user starts typing againg
+    if (formik.isValidating || formik.isSubmitting) setSucccesMsg("");
+  }, [formik.errors, formik.isSubmitting, formik.isValidating]);
 
   return (
     <FullScreenSection
@@ -53,66 +83,107 @@ const ContactMeSection = () => {
       id="contactme-section"
       scrollMarginTop="80px"
     >
-      <Box
-      w="100%"
-      maxW="900px"
-      mx="auto"
-      px={4}
+      <VStack
+        w="100%"
+        maxW="900px"
+        mx="auto"
+        spacing={6}
+        align="flex-start"
       >
-       <Heading as="h1" size="xl" mb={6}>
+        <Heading as="h1" size="xl" mb={4}>
           Contact me
         </Heading>
 
-        <Box p={6} rounded="md" w="100%" bg="whiteAlpha.50">
-          <form 
-          onSubmit={formik.handleSubmit}
-          name="contact"
-          method="POST"
-          data-netlify="true"
-          netlify-honeypot="bot-field"
+        <Box p={6} rounded="md" w="100%" bg="whiteAlpha.100">
+          {/* ARIA-live region for a11y success message */}
+          <Box
+            role="status"
+            aria-live="polite"
+            tabIndex={-1}
+            ref={formRef}
+            style={{ outline: "none " }}
+            mb={successMsg ? 4 : 0}
+          >
+            {successMsg && (
+              <Text color="green.300" fontWeight="bold">
+                {successMsg}
+              </Text>
+            )}
+          </Box>
+
+          <form
+            onSubmit={formik.handleSubmit}
+            name="contact"
+            method="POST"
+            autoComplete="on"
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+            aria-describedby={successMsg ? "contact-success" : undefined}
           >
             <input type="hidden" name="form-name" value="contact" />
             <input type="hidden" name="bot-field" />
 
             <VStack spacing={4} w="100%" align="stretch">
+              {/* Name */}
               <FormControl
-                isInvalid={formik.touched.firstName && !!formik.errors.firstName}>
-                <FormLabel htmlFor="firstName">Name</FormLabel>
+                isInvalid={formik.touched.firstName && !!formik.errors.firstName}
+                isRequired
+                showRequiredIndicator={false} // Use Chakra´s indicator
+              >
+                <FormLabel htmlFor="firstName" fontSize="xl" fontWeight="bold">
+                  Name
+                </FormLabel>
                 <Input
                   id="firstName"
                   name="firstName"
+                  placeholder="Please enter your name"
+                  _placeholder={{ color: "gray.400"}}
+                  autoComplete="name"
                   size="lg"
                   w="100%"
+                  aria-required="true"
                   {...formik.getFieldProps("firstName")}
                 />
-                <FormErrorMessage>{formik.errors.firstName}</FormErrorMessage>
               </FormControl>
+
+              {/* Email */}
               <FormControl
-                isInvalid={formik.touched.email && !!formik.errors.email}>
-                <FormLabel htmlFor="email">Email Address</FormLabel>
+                isInvalid={formik.touched.email && !!formik.errors.email}
+                isRequired
+              >
+                <FormLabel htmlFor="email" fontSize="xl" fontWeight="bold">
+                  Email Address
+                </FormLabel>
                 <Input
                   id="email"
                   name="email"
                   type="email"
+                  placeholder="Please enter a valid email address"
+                  _placeholder={{ color: "gray.400"}}
+                  autoComplete="email"
                   size="lg"
                   width="100%"
+                  aria-required="true"
                   {...formik.getFieldProps("email")}
                 />
-                <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
               </FormControl>
 
+              {/* Type of enquiry */}
               <FormControl>
-                <FormLabel htmlFor="type">Type of enquiry</FormLabel>
+                <FormLabel htmlFor="type" fontSize="xl" fontWeight="bold">
+                  Type of enquiry
+                </FormLabel>
                 <Select
                   id="type"
                   name="type"
-                  placeholder="Select Option"
+                  placeholder="Select an Option"
                   bg="#512DA8"
                   color="white"
                   borderColor="white"
                   _hover={{ borderColor: "#6C47C5" }}
                   size="lg"
-                  width="100%"
+                  w="100%"
+                  autoComplete="off"
                   {...formik.getFieldProps("type")}
                 >
                   <option value="hireMe">Freelance project proposal</option>
@@ -123,30 +194,48 @@ const ContactMeSection = () => {
                 </Select>
               </FormControl>
 
-              <FormControl isInvalid={formik.touched.comment && !!formik.errors.comment}
+              {/*Message */}
+              <FormControl 
+              isInvalid={formik.touched.comment && !!formik.errors.comment}
+                isRequired
+                showRequiredIndicator={true}
               >
-                <FormLabel htmlFor="comment">Your message</FormLabel>
+                <FormLabel htmlFor="comment" fontSize="xl" fontWeight="bold">
+                  Your message
+                </FormLabel>
                 <Textarea
                   id="comment"
                   name="comment"
                   height={250}
-                  size="lg"
-                  width="100%"
+                  size="xl"
+                  w="100%"
+                  aria-required="true"
+                  placeholder="How can we help you? (min. 25 characters)"
+                  _placeholder={{ color: "gray.400"}}
+                  autoComplete="off"
+                  pl={3}
                   {...formik.getFieldProps("comment")}
                 />
-                <FormErrorMessage>{formik.errors.comment}</FormErrorMessage>
               </FormControl>
+              {/* Privacy note below form fields */}
+
+              <Text fontSize="xl" color="gray.400" mt={2}>
+                We value your privacy. Your information is never shared or sold, and you will not receive any unsolicited newsletters or marketing information.
+              </Text>
               <Button
                 type="submit"
                 colorScheme="purple"
                 width="full"
+                fontSize="xl"
+                isLoading={formik.isSubmitting}
+                aria-busy={formik.isSubmitting}
               >
                 Submit
               </Button>
             </VStack>
           </form>
         </Box>
-      </Box>
+      </VStack>
     </FullScreenSection>
   );
 };

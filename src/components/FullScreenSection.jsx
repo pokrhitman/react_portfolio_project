@@ -1,19 +1,23 @@
 import * as React from "react";
-import { VStack } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
 /**
- * Illustrates the use of children prop and spread operator
+ * A full-viewport section wrapper.
+ * Lets inner content handle centering, width and layout.
  */
+
 const FullScreenSection = ({ children, isDarkBackground, ...boxProps }) => {
   return (
-    <VStack
+    <Box
+      w="100vw"
+      minH="100vh"
       backgroundColor={boxProps.backgroundColor}
       color={isDarkBackground ? "white" : "black"}
+      {...boxProps}
     >
-      <VStack maxWidth="1280px" minHeight="100vh" {...boxProps}>
         {children}
-      </VStack>
-    </VStack>
+    </Box>
+
   );
 };
 

@@ -32,44 +32,30 @@ const socials = [
   },
 ];
 
-const Header = () => {
-  const [showHeader, setShowHeader] = useState(true);
-  const prevScrollY = useRef(window.scrollY);
+const HEADER_HEIGHT = 80;
 
+const Header = () => {
+  // Smooth scroll handler with header offset for anchors
   const handleClick = (anchor) => (e) => {
     e.preventDefault();
+    if (anchor === "top") {
+      window.scrollTo({ top: 0, behavior: "smooth"});
+      window.history.pushState(null, "", "/#");
+      return;
+    }
+
     const id = `${anchor}-section`;
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elementPosition - HEADER_HEIGHT;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
       });
     }
     window.history.pushState(null, "", `/#${id}`);
   };
-
-  useEffect(() => {
-    let ticking = false;
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const currentScrollY = window.scrollY;
-          if (currentScrollY > prevScrollY.current && currentScrollY > 64) {
-            setShowHeader(false);
-          } else {
-            setShowHeader(true);
-          }
-          prevScrollY.current = currentScrollY;
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
 
   return (
     <Box
@@ -77,15 +63,10 @@ const Header = () => {
       top={0}
       left={0}
       right={0}
-      translateY={0}
-      transitionProperty="transform"
-      transitionDuration=".3s"
-      transitionTimingFunction="ease-in-out"
+      zIndex={1000}
       backgroundColor="#18181b"
-      zIndex={10}
-      style = {{
-        transform: showHeader ? "translateY(0)" : "translateY(-200px",
-      }}
+      boxShadow="md"
+      height={`${HEADER_HEIGHT}px`}
     >
       <Box color="white" maxWidth="1280px" margin="0 auto">
         <HStack
@@ -124,6 +105,16 @@ const Header = () => {
                 onClick={handleClick("contactme")}
                 style={{ fontWeight: "bold", cursor: "pointer" }}>
                 Contact Me
+              </a>
+              <a
+                href="/#"
+                onClick={handleClick("top")}
+                style={{ 
+                  fontWeight: "bold", 
+                  cursor: "pointer",
+                  }}
+                  >
+                Back to Top
               </a>
             </HStack>
           </nav>

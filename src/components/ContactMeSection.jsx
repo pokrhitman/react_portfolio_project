@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import {
   Box,
@@ -14,11 +13,9 @@ import {
 } from "@chakra-ui/react";
 import * as Yup from 'yup';
 import FullScreenSection from "./FullScreenSection";
-import useSubmit from "../hooks/useSubmit";
 import { useAlertContext } from "../context/alertContext";
 
 const ContactMeSection = () => {
-  const { isLoading, submit } = useSubmit();
   const { onOpen } = useAlertContext();
 
   const formik = useFormik({
@@ -38,28 +35,13 @@ const ContactMeSection = () => {
         .required("Required")
         .min(25, "Must be at least 25 characters"),
     }),
-    onSubmit: async (values, { resetForm }) => {
-      const response = await submit(values);
-      console.log("submit response:", response);
-
-      if (!response) {
-        onOpen("error", "No server response. Please try again.");
-        return;
-      }
-
-      if (response.type === "success") {
-        onOpen(
-          "success", 
-          `Thanks for your submission ${values.firstName}, we will get back to you shortly!`
-        );
-        resetForm();
-      } else {
-        onOpen(
-          "error", 
-          "Something went wrong, please try again later"
-        );
+    onSubmit: (values, { resetForm }) => {
+      onOpen(
+        "success",
+        `Thanks for your submission ${values.firstName}, we will get back to you shortly!`
+      );
+      resetForm();
     }
-  }
   });
 
   return (
@@ -68,20 +50,39 @@ const ContactMeSection = () => {
       backgroundColor="#512DA8"
       py={16}
       spacing={8}
+      id="contactme-section"
+      scrollMarginTop="80px"
     >
-      <VStack w="1024px" p={32} alignItems="flex-start">
-        <Heading as="h1" id="contactme-section">
+      <Box
+      w="100%"
+      maxW="900px"
+      mx="auto"
+      px={4}
+      >
+       <Heading as="h1" size="xl" mb={6}>
           Contact me
         </Heading>
-        <Box p={6} rounded="md" w="100%">
-          <form onSubmit={formik.handleSubmit}>
-            <VStack spacing={4}>
+
+        <Box p={6} rounded="md" w="100%" bg="whiteAlpha.50">
+          <form 
+          onSubmit={formik.handleSubmit}
+          name="contact"
+          method="POST"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+          >
+            <input type="hidden" name="form-name" value="contact" />
+            <input type="hidden" name="bot-field" />
+
+            <VStack spacing={4} w="100%" align="stretch">
               <FormControl
                 isInvalid={formik.touched.firstName && !!formik.errors.firstName}>
                 <FormLabel htmlFor="firstName">Name</FormLabel>
                 <Input
                   id="firstName"
                   name="firstName"
+                  size="lg"
+                  w="100%"
                   {...formik.getFieldProps("firstName")}
                 />
                 <FormErrorMessage>{formik.errors.firstName}</FormErrorMessage>
@@ -93,6 +94,8 @@ const ContactMeSection = () => {
                   id="email"
                   name="email"
                   type="email"
+                  size="lg"
+                  width="100%"
                   {...formik.getFieldProps("email")}
                 />
                 <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
@@ -100,15 +103,17 @@ const ContactMeSection = () => {
 
               <FormControl>
                 <FormLabel htmlFor="type">Type of enquiry</FormLabel>
-                <Select 
-                id="type" 
-                name="type"
-                placeholder="Select Option"
-                bg="#512DA8"
-                color="white"
-                borderColor="white"
-                _hover={{ borderColor: "#6C47C5"}}
-                {...formik.getFieldProps("type")}  
+                <Select
+                  id="type"
+                  name="type"
+                  placeholder="Select Option"
+                  bg="#512DA8"
+                  color="white"
+                  borderColor="white"
+                  _hover={{ borderColor: "#6C47C5" }}
+                  size="lg"
+                  width="100%"
+                  {...formik.getFieldProps("type")}
                 >
                   <option value="hireMe">Freelance project proposal</option>
                   <option value="openSource">
@@ -125,23 +130,23 @@ const ContactMeSection = () => {
                   id="comment"
                   name="comment"
                   height={250}
+                  size="lg"
+                  width="100%"
                   {...formik.getFieldProps("comment")}
                 />
                 <FormErrorMessage>{formik.errors.comment}</FormErrorMessage>
               </FormControl>
-              <Button 
-              type="submit" 
-              colorScheme="purple" 
-              width="full"
-              isLoading={isLoading}
-              loadingText="Sending"
+              <Button
+                type="submit"
+                colorScheme="purple"
+                width="full"
               >
                 Submit
               </Button>
             </VStack>
           </form>
         </Box>
-      </VStack>
+      </Box>
     </FullScreenSection>
   );
 };

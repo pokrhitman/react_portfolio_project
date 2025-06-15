@@ -48,6 +48,21 @@ Passionate about building user-friendly software, applications and digital exper
 
 ---
 
+## ♿ Accessibility & UX Highlights
+
+This portfolio project was carefully audited and refactored to meet strong accessibility and design standards:
+
+- ✅ **Semantic HTML**: Used `section`, `main`, `footer`, and `article` landmarks for assistive tech navigation
+- ✅ **Chakra UI a11y patterns**: Implemented `LinkBox` / `LinkOverlay`, `aria-label`, `role="alertdialog"`, and keyboard focus visibility
+- ✅ **Color contrast & theme tokens**: Replaced raw hex values with Chakra theme tokens for consistent styling
+- ✅ **Responsive design**: All layout primitives (Box, VStack, Grid) scale fluidly with Chakra breakpoints
+- ✅ **ARIA roles & live regions**: Used `aria-labelledby`, `aria-describedby`, `role="contentinfo"`, and `aria-live` for form alerts
+- ✅ **Keyboard accessibility**: Ensured all buttons and interactive cards are focusable with visible `:focus` states
+- ✅ **Performance-friendly architecture**: Components are modular, context-aware (`AlertProvider`), and scoped cleanly
+
+> This project demonstrates not only UI skills, but also a strong focus on inclusive, production-ready design principles.
+
+
 ## 📫 Contact
 
 - [LinkedIn](https://www.linkedin.com/in/ernesto-burzi%C4%87-a19b36276/)

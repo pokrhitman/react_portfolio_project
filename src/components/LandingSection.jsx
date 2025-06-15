@@ -14,20 +14,24 @@ const LandingSection = () => (
     isDarkBackground
     id="landing-section"
   >
+    <section aria-labelledby="intro-heading" style={{ width: "100%"}}>
+
     <VStack
+    as="div"
       minH="100vh"
-      w="100%"
       maxW="900px"
       mx="auto"
       align="center"
       justify="center"
       spacing={8}
       px={[2, 4, 6]}
+      tabIndex={-1}
+      aria-label="Landing introduction section"
     >
 
       <Avatar
         boxSize="360px"
-        name="Pokrhitman"
+        name="Portrait of Pokrhitman, Front-End Developer"
         src={profilePic}
         mb={10}
       />
@@ -35,6 +39,7 @@ const LandingSection = () => (
       <Heading as="h1" size="xl" textAlign="center">
         {greeting}
       </Heading>
+
       <Text 
       fontSize={["md", "lg", "2xl"]} 
       textAlign="center" 
@@ -42,10 +47,16 @@ const LandingSection = () => (
       >
         {bio1}
       </Text>
-      <Text fontSize="2xl" color="gray.300" textAlign="center" whiteSpace="preline">
+
+      <Text 
+      fontSize="2xl" 
+      color="gray.300" 
+      textAlign="center" 
+      whiteSpace="pre-line">
         {bio2}
       </Text>
     </VStack>
+    </section>
   </FullScreenSection>
 );
 

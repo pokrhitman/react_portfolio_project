@@ -1,22 +1,22 @@
 import React from "react";
-import {Box, Flex} from "@chakra-ui/react";
+import {Box, Flex, Text} from "@chakra-ui/react";
 
 const Footer = () => {
   return (
-    <Box backgroundColor="#18181b">
-      <footer>
+    <Box as="footer" role="contentinfo" bg="gray.900">
+
         <Flex
           margin="0 auto"
-          px={12}
+          px={[4, 6, 12]}
           color="white"
           justifyContent="center"
           alignItems="center"
           maxWidth="1024px"
           height={16}
+          textAlign="center"
         >
-          <p>Pokrhitman • © 2025</p>
+          <Text fontSize="sm">© 2025 Pokrhitman • All rights reserved</Text>
         </Flex>
-      </footer>
     </Box>
   );
 };

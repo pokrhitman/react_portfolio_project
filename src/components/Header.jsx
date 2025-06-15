@@ -1,4 +1,3 @@
-import React, { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -13,22 +12,27 @@ const socials = [
   {
     icon: faEnvelope,
     url: "mailto: pokrhitman@gmail.com",
+    label: "Email",
   },
   {
     icon: faGithub,
     url: "https://github.com/pokrhitman?tab=repositories",
+    label: "GitHub"
   },
   {
     icon: faLinkedin,
     url: "https://www.linkedin.com/in/ernesto-burzi%C4%87-a19b36276/",
+    label: "LinkedIn",
   },
   {
     icon: faMedium,
     url: "https://medium.com",
+    label: "Medium",
   },
   {
     icon: faStackOverflow,
     url: "https://stackoverflow.com",
+    label: "Stack Overflow",
   },
 ];
 
@@ -47,7 +51,8 @@ const Header = () => {
     const id = `${anchor}-section`;
     const element = document.getElementById(id);
     if (element) {
-      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+      const elementPosition = 
+      element.getBoundingClientRect().top + window.pageYOffset;
       const offsetPosition = elementPosition - HEADER_HEIGHT;
       window.scrollTo({
         top: offsetPosition,
@@ -75,7 +80,7 @@ const Header = () => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <nav>
+          <nav aria-label="Social media links">
             <HStack spacing={4}>
               {socials.map((social) => (
                 <a
@@ -91,7 +96,7 @@ const Header = () => {
             </HStack>
           </nav>
 
-          <nav>
+          <nav aria-label="Main site navigation">
             <HStack spacing={8}>
               <a
                 href="/#projects-section"
@@ -107,7 +112,7 @@ const Header = () => {
                 Contact Me
               </a>
               <a
-                href="/#"
+                href="#top"
                 onClick={handleClick("top")}
                 style={{ 
                   fontWeight: "bold", 
@@ -118,6 +123,7 @@ const Header = () => {
               </a>
             </HStack>
           </nav>
+
         </HStack>
       </Box>
     </Box>

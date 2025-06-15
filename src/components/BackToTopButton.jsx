@@ -22,8 +22,13 @@ const BackToTopButton = () => {
                 colorScheme="purple"
                 borderRadius="full"
                 boxShadow="lg"
-                aria-label="Back To Top"
+                type="button"
+                aria-label="Back to Top"
                 onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                _focusVisible={{
+                    boxShadow: "outline",
+                    transform: "scale(1.05)",
+                }}
             />
         </Fade>
     );

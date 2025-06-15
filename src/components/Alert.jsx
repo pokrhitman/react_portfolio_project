@@ -2,8 +2,10 @@ import {
   AlertDialog,
   AlertDialogBody,
   AlertDialogContent,
+  AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogOverlay,
+  Button,
 } from "@chakra-ui/react";
 import { useAlertContext } from "../context/alertContext";
 import { useRef } from "react";
@@ -21,13 +23,33 @@ function Alert() {
       isOpen={isOpen}
       leastDestructiveRef={cancelRef}
       onClose={onClose}
+      motionPreset="scale"
+      isCentered
+      role="alertdialog"
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-body"
     >
       <AlertDialogOverlay>
-        <AlertDialogContent py={4} backgroundColor={isSuccess ? '#81C784' : '#FF8A65'}>
-          <AlertDialogHeader fontSize="lg" fontWeight="bold">
+        <AlertDialogContent
+          py={4}
+          bg={isSuccess ? "green.300" : "orange.300"}
+          color="black"
+        >
+          <AlertDialogHeader
+            id="alert-dialog-title"
+            fontSize="lg" 
+            fontWeight="bold"
+            >
             {isSuccess ? 'All good!' : 'Oops!'}
           </AlertDialogHeader>
-          <AlertDialogBody>{message}</AlertDialogBody>
+
+          <AlertDialogBody id="alert-dialog-body">{message}</AlertDialogBody>
+
+          <AlertDialogFooter>
+            <Button ref={cancelRef} onClick={onClose} colorScheme="gray">
+              OK
+            </Button>
+          </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialogOverlay>
     </AlertDialog>

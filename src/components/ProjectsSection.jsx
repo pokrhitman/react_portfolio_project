@@ -1,6 +1,6 @@
 import React from "react";
 import FullScreenSection from "./FullScreenSection";
-import { Box, Heading, SimpleGrid, VStack } from "@chakra-ui/react";
+import { Heading, VStack, SimpleGrid } from "@chakra-ui/react";
 import Card from "./Card";
 import photo1 from "../images/photo1.jpg";
 import photo2 from "../images/photo2.jpg";
@@ -33,37 +33,47 @@ const ProjectsSection = () => {
       id="projects-section"
       scrollMarginTop="80px"
     >
-      <VStack
-        w="100%"
-        maxW="1200px"
-        mx="auto"
-        spacing={8}
-        align="stretch"
-        px={[2, 4, 6]}
-      >
-
-        <Heading as="h1" mb={8} size="xl" alignSelf="flex-start" w="100%">
-          Featured Projects
-        </Heading>
-        <SimpleGrid
-          columns={[1, null, 2]}
-          spacing={8}
-          justifyItems="center"
+      <section aria-labelledby="projects-heading" style={{ width: "100%" }}>
+        <VStack
           w="100%"
+          maxW="1200px"
+          mx="auto"
+          spacing={8}
+          align="stretch"
+          px={[2, 4, 6]}
         >
-          {projects.map((project) => (
-            <Card
-              key={project.title}
-              title={project.title}
-              description={project.description}
-              imageSrc={project.imageSrc}
-              url={project.url}
-              w="100%"
-              maxW="800px"
-            />
-          ))}
-        </SimpleGrid>
-      </VStack>
+          <Heading
+            as="h1"
+            id="projects-heading"
+            mb={8}
+            size="xl"
+            alignSelf="flex-start"
+            w="100%"
+            color="white"
+          >
+            Featured Projects
+          </Heading>
+
+          <SimpleGrid
+            columns={[1, null, 2]}
+            spacing={8}
+            justifyItems="center"
+            w="100%"
+          >
+            {projects.map((project) => (
+              <Card
+                key={project.title}
+                title={project.title}
+                description={project.description}
+                imageSrc={project.imageSrc}
+                url={project.url}
+                w="100%"
+                maxW="800px"
+              />
+            ))}
+          </SimpleGrid>
+        </VStack>
+        </section>
     </FullScreenSection>
   );
 };

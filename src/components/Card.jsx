@@ -5,7 +5,8 @@ import {
   Image,
   Text,
   LinkBox,
-  LinkOverlay
+  LinkOverlay,
+  Link
 } from "@chakra-ui/react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -33,7 +34,7 @@ const Card = ({ title, description, imageSrc, url }) => {
     >
       <Image
         src={imageSrc}
-        alt={title}
+        alt={`${title} screenshot`}
         width="100%"
         height="460px"
         objectFit="cover"
@@ -53,21 +54,23 @@ const Card = ({ title, description, imageSrc, url }) => {
         <Text fontSize="xl" color="gray.600" mb={4}>
           {description}
         </Text>
+
         <HStack pt={2} spacing={2}>
-          <LinkOverlay
+          <Link
             href={url}
             isExternal
             fontWeight="bold"
-            color="blue-700"
+            color="blue.700"
             fontSize="md"
             display="flex"
             alignItems="center"
             _hover={{ color: "purple.600" }}
+            aria-label={`Visit ${title}`}
           >
             See more&nbsp;
             <FontAwesomeIcon icon={faArrowRight} size="1x" />
 
-          </LinkOverlay>
+          </Link>
         </HStack>
       </Box>
     </LinkBox>

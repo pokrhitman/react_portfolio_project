@@ -37,8 +37,10 @@ const Card = ({ title, description, imageSrc, url }) => {
         alt={`${title} screenshot`}
         width="100%"
         height="460px"
-        objectFit="cover"
+        objectFit="contain"
         borderTopRadius="lg"
+        bg="gray.100"
+        boxShadow="lg"
       />
       <Box p={6}>
         <Heading as="h3" size="lg" mb={2} color="black">
